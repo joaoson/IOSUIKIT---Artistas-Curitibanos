@@ -2,17 +2,15 @@
 //  DetalheObraDeArteViewController.swift
 //  IOSUIkitFinal
 //
-//  Created by João Vitor De Freitas on 26/04/25.
+//  Created by João Vitor De Freitas, Carlos Hobmeier, Amanda Queiroz e Theo Nicoleli on 26/04/25.
 //
 
 import UIKit
 
 class DetalheObraDeArteViewController: UIViewController {
     
-    // Propriedade para receber a obra selecionada
     var obra: ObraDeArte!
     
-    // UI Components
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let imagemView = UIImageView()
@@ -52,16 +50,13 @@ class DetalheObraDeArteViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
         
-        // Adicionar insets para evitar que o conteúdo fique sob a home indicator ou corte no topo
         scrollView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 20, right: 0)
     }
     
     private func setupUI() {
-        // Configuração da imagem
         imagemView.contentMode = .scaleAspectFit
         imagemView.clipsToBounds = true
         
-        // Configuração das labels
         tituloLabel.font = UIFont.boldSystemFont(ofSize: 24)
         tituloLabel.numberOfLines = 0
         
@@ -77,22 +72,18 @@ class DetalheObraDeArteViewController: UIViewController {
         descricaoLabel.font = UIFont.systemFont(ofSize: 16)
         descricaoLabel.numberOfLines = 0
         
-        // Configuração do botão de compartilhar
         compartilharButton.setTitle("Compartilhar", for: .normal)
         compartilharButton.backgroundColor = .systemBlue
         compartilharButton.setTitleColor(.white, for: .normal)
         compartilharButton.layer.cornerRadius = 10
         compartilharButton.addTarget(self, action: #selector(compartilharTapped), for: .touchUpInside)
         
-        // Adicionar componentes à contentView com padding adequado
         [imagemView, tituloLabel, artistaLabel, anoLabel, estiloLabel, descricaoLabel, compartilharButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview($0)
         }
         
-        // Configurar constraints com paddings apropriados
         NSLayoutConstraint.activate([
-            // Adicionado padding horizontal de 16pt
             imagemView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             imagemView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             imagemView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -122,7 +113,6 @@ class DetalheObraDeArteViewController: UIViewController {
             compartilharButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             compartilharButton.widthAnchor.constraint(equalToConstant: 200),
             compartilharButton.heightAnchor.constraint(equalToConstant: 44),
-            // Aumentado o padding inferior para garantir espaço antes da home indicator
             compartilharButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -32)
         ])
     }

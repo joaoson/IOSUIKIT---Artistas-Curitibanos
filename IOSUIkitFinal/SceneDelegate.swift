@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  IOSUIkitFinal
 //
-//  Created by João Vitor De Freitas on 20/04/25.
+//  Created by João Vitor De Freitas, Carlos Hobmeier, Amanda Queiroz e Theo Nicoleli on 20/04/25.
 //
 
 import UIKit
@@ -19,15 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
         window = UIWindow(windowScene: windowScene)
 
-        // --- 1) Splash ---
         let splash = SplashViewController()
 
-        // --- 2) Navegação principal (ainda não apresentada) ---
         let mainVC = ViewController2()
         let nav = UINavigationController(rootViewController: mainVC)
         nav.delegate = navigationDelegate
 
-        // --- 3) Quando o splash terminar... ---
         splash.onFinish = { [weak self] in
             guard let self = self, let window = self.window else { return }
 
@@ -44,7 +41,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                               })
         }
 
-        // --- 4) Define splash como root inicial ---
         window?.rootViewController = splash
         window?.makeKeyAndVisible()
     }

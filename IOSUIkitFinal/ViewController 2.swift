@@ -98,10 +98,9 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
         var collectionView: UICollectionView!
         var searchBar: UISearchBar!
         
-        // Layout control
         var itemsPerRowButton: UIButton!
         var itemsPerRowOptions = [1, 2, 3, 4]
-        var selectedItemsPerRow = 2 // Default value
+        var selectedItemsPerRow = 2
         
         private var isTransitioning = false
         private var collectionTopConstraint: NSLayoutConstraint!
@@ -122,7 +121,6 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
         }
         
         func setupCustomNavigationBar() {
-            // Set the navigation bar color to dark blue
             let navBarAppearance = UINavigationBarAppearance()
             navBarAppearance.configureWithOpaqueBackground()
             navBarAppearance.backgroundColor = UIColor(red: 13/255, green: 36/255, blue: 53/255, alpha: 1.0) // #0d2435
@@ -144,7 +142,6 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
         }
         
     func setupSearchBarAndLayoutControl() {
-        // Container for search bar and layout control
         let topControlsContainer = UIView()
         topControlsContainer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(topControlsContainer)
@@ -166,12 +163,10 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
             topControlsContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             topControlsContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
             
-            // Search bar constraints
             searchBar.topAnchor.constraint(equalTo: topControlsContainer.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: topControlsContainer.leadingAnchor),
             searchBar.bottomAnchor.constraint(equalTo: topControlsContainer.bottomAnchor),
             
-            // Layout button constraints
             itemsPerRowButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
             itemsPerRowButton.trailingAnchor.constraint(equalTo: topControlsContainer.trailingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: itemsPerRowButton.leadingAnchor, constant: -8)
@@ -180,7 +175,6 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
         collectionTopConstraint = NSLayoutConstraint()
     }
 
-    // Helper method to create a layout button with appropriate icon
     func createLayoutButton(for itemCount: Int) -> UIButton {
         let button = UIButton(type: .system)
         button.setImage(getLayoutIcon(for: itemCount), for: .normal)
@@ -195,7 +189,6 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
         return button
     }
         
-        // Helper method to get the appropriate layout icon
         func getLayoutIcon(for itemCount: Int) -> UIImage? {
             let imageName: String
             switch itemCount {
@@ -208,32 +201,26 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
             case 4:
                 imageName = "rectangle.grid.2x2"
             default:
-                imageName = "rectangle.split.2x1" // Default
+                imageName = "rectangle.split.2x1"
             }
             
-            // Try to get SF Symbol first
             if let sfSymbol = UIImage(systemName: imageName) {
                 return sfSymbol.withRenderingMode(.alwaysTemplate)
             }
             
-            // Fall back to custom images if needed
             return UIImage(named: "layout_\(itemCount)")
         }
         
         @objc func cycleLayoutOption() {
-            // Find the current index in the options array
             guard let currentIndex = itemsPerRowOptions.firstIndex(of: selectedItemsPerRow) else { return }
             
-            // Calculate the next index (cycling through the options)
             let nextIndex = (currentIndex + 1) % itemsPerRowOptions.count
             selectedItemsPerRow = itemsPerRowOptions[nextIndex]
             
-            // Update the button image with animation
             UIView.transition(with: itemsPerRowButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
                 self.itemsPerRowButton.setImage(self.getLayoutIcon(for: self.selectedItemsPerRow), for: .normal)
             }, completion: nil)
             
-            // Refresh collection view layout
             collectionView.collectionViewLayout.invalidateLayout()
         }
         
@@ -251,7 +238,6 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
             collectionView.delegate = self
             collectionView.register(ObraDeArteCell.self, forCellWithReuseIdentifier: ObraDeArteCell.identifier)
             
-            // Configuração do contentInset para o bottom para evitar que o conteúdo fique abaixo da home indicator
             collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
             
             view.addSubview(collectionView)
@@ -278,7 +264,6 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ObraDeArteCell.identifier, for: indexPath) as? ObraDeArteCell else {
                 return UICollectionViewCell()
             }
-            // Keep the cell with default styling (not dark)
             cell.configure(with: obrasFiltradas[indexPath.item])
             return cell
         }
@@ -286,7 +271,6 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
         // MARK: - UICollectionViewDelegateFlowLayout
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            // Calculate cell width based on number of items per row
             let sectionInset = (collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
             let interitemSpacing = (collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? 16
             
@@ -308,13 +292,10 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
             let detalheVC = DetalheObraDeArteViewController()
             detalheVC.obra = obraSelecionada
             
-            // Desabilitar interações na collection durante a animação
             collectionView.isUserInteractionEnabled = false
             
-            // Apresentar a tela de detalhes
             navigationController?.pushViewController(detalheVC, animated: true)
             
-            // Habilitar interações novamente após um período
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.collectionView.isUserInteractionEnabled = true
                 self.isTransitioning = false
@@ -355,7 +336,6 @@ class ViewController2: UIViewController, UICollectionViewDataSource, UICollectio
             super.viewWillTransition(to: size, with: coordinator)
             
             coordinator.animate(alongsideTransition: nil) { _ in
-                // Depois que a rotação conclui, invalida o layout
                 self.collectionView.collectionViewLayout.invalidateLayout()
             }
         }

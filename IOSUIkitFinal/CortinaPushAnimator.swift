@@ -8,7 +8,6 @@
 
 import UIKit
 
-// Animador personalizado para transição de push com efeito de cortina
 class CortinaPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     private let isPushing: Bool
@@ -39,7 +38,6 @@ class CortinaPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let finalFrame = transitionContext.finalFrame(for: toVC)
         toVC.view.frame = finalFrame
         
-        // Criar duas views para simular as cortinas
         let leftCurtain = UIView(frame: CGRect(x: 0, y: 0, width: finalFrame.width / 2, height: finalFrame.height))
         leftCurtain.backgroundColor = .white
         
@@ -49,7 +47,6 @@ class CortinaPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         containerView.addSubview(leftCurtain)
         containerView.addSubview(rightCurtain)
         
-        // Animar a abertura das cortinas
         UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
             leftCurtain.frame = CGRect(x: -finalFrame.width / 2, y: 0, width: finalFrame.width / 2, height: finalFrame.height)
             rightCurtain.frame = CGRect(x: finalFrame.width, y: 0, width: finalFrame.width / 2, height: finalFrame.height)
@@ -69,7 +66,6 @@ class CortinaPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         
         let finalFrame = fromVC.view.frame
         
-        // Criar duas views para simular as cortinas
         let leftCurtain = UIView(frame: CGRect(x: -finalFrame.width / 2, y: 0, width: finalFrame.width / 2, height: finalFrame.height))
         leftCurtain.backgroundColor = .white
         
@@ -79,7 +75,6 @@ class CortinaPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         containerView.addSubview(leftCurtain)
         containerView.addSubview(rightCurtain)
         
-        // Animar o fechamento das cortinas
         UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
             leftCurtain.frame = CGRect(x: 0, y: 0, width: finalFrame.width / 2, height: finalFrame.height)
             rightCurtain.frame = CGRect(x: finalFrame.width / 2, y: 0, width: finalFrame.width / 2, height: finalFrame.height)
@@ -91,7 +86,6 @@ class CortinaPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     }
 }
 
-// Classe para gerenciar a transição entre os view controllers no NavigationController
 class CortinaNavigationControllerDelegate: NSObject, UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController,

@@ -2,7 +2,7 @@
 //  ObraDeArte.swift
 //  IOSUIkitFinal
 //
-//  Created by João Vitor De Freitas on 20/04/25.
+//  Created by João Vitor De Freitas, Carlos Hobmeier, Amanda Queiroz e Theo Nicoleli on 20/04/25.
 //
 
 import Foundation

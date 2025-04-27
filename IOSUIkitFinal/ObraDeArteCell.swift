@@ -2,7 +2,7 @@
 //  ObraDeArteCell.swift
 //  IOSUIkitFinal
 //
-//  Created by João Vitor De Freitas on 20/04/25.
+//  Created by João Vitor De Freitas, Carlos Hobmeier, Amanda Queiroz e Theo Nicoleli on 20/04/25.
 //
 
 
@@ -23,7 +23,6 @@ class ObraDeArteCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor.lightGray.cgColor
         contentView.layer.masksToBounds = true   // keep corners clipped
 
-           // --- Shadow on the cell itself ---
            layer.shadowColor   = UIColor.black.cgColor
            layer.shadowOpacity = 0.12              // subtle shadow
            layer.shadowRadius  = 4                 // blur

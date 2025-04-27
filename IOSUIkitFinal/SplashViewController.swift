@@ -2,7 +2,7 @@
 //  SplashViewController.swift
 //  IOSUIkitFinal
 //
-//  Created by João Vitor De Freitas on 23/04/25.
+//  Created by João Vitor De Freitas, Carlos Hobmeier, Amanda Queiroz e Theo Nicoleli on 23/04/25.
 //
 
 import UIKit
@@ -10,12 +10,11 @@ import UIKit
 final class SplashViewController: UIViewController {
 
     // MARK: - Public callback
-    /// Definido pelo SceneDelegate para prosseguir ao app principal
     var onFinish: (() -> Void)?
 
     // MARK: - Private UI
     private let logoView: UIImageView = {
-        let image = UIImage(named: "capy") // ajuste ao nome do seu asset
+        let image = UIImage(named: "capy") 
         let iv = UIImageView(image: image)
         iv.contentMode = .scaleAspectFit
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -30,9 +29,7 @@ final class SplashViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        // Breve atraso para a tela ser percebida
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
+z        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
             self?.animateAndFinish()
         }
     }
